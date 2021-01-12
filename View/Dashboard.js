@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
 View,
 Text,
@@ -12,6 +12,24 @@ Alert
 
 
 const Dashboard = () => {
+    const [SelectedId, SetSelectedId] = useState (null);
+    
+    const DashboardCards = (props) => {
+        if (SelectedId == props.id) {
+            console.log("Selected Item = ", SelectedId)
+        }
+
+        return (
+            <View>
+            <TouchableOpacity style = {style.cardStyle} onPress = {()=>SetSelectedId(props.id)}>
+                <Image source = {props.icon} style = {style.cardImageStyle}/>
+                <Text style = {style.cardTitleStyle}>{props.name}</Text>
+            </TouchableOpacity>
+            </View>
+        );
+    }
+
+
     return (
         <View style = {style.container}>
             <View style={style.topView}>
@@ -26,7 +44,7 @@ const Dashboard = () => {
                           showsVerticalScrollIndicator = {false}
                           data = {CardData}
                           renderItem = {
-                            ({item}) => <DashboardCards icon = {item.icon} name = {item.name}/>
+                            ({item}) => <DashboardCards icon = {item.icon} name = {item.name} id = {item.id}/>
                         }
                         keyExtractor={(item, index) => index.toString()}>
 
@@ -38,28 +56,14 @@ const Dashboard = () => {
 }
 
 const CardData = [
-    {'icon' : require ('../Images/ic_Profile.png'), 'name' : 'PROFILE'},
-    {'icon' : require ('../Images/ic_Cart.png'), 'name' : 'CART'},
-    {'icon' : require ('../Images/ic_Orders.png'), 'name' : 'ORDERS'},
-    {'icon' : require ('../Images/ic_About.png'), 'name' : 'ABOUT'},
-    {'icon' : require ('../Images/ic_Settings.png'), 'name' : 'SETTINGS'}
+    {'icon' : require ('../Images/ic_Profile.png'), 'name' : 'PROFILE', 'id' : 1},
+    {'icon' : require ('../Images/ic_Cart.png'), 'name' : 'CART', 'id' : 2},
+    {'icon' : require ('../Images/ic_Orders.png'), 'name' : 'ORDERS', 'id' : 3},
+    {'icon' : require ('../Images/ic_About.png'), 'name' : 'ABOUT', 'id' : 4},
+    {'icon' : require ('../Images/ic_Settings.png'), 'name' : 'SETTINGS', 'id' : 5}
 ]
 
-const DashboardCards = (props) => {
-    
-    const OnClickMenuItems = (item) => {
-        
-    }
 
-    return (
-        <View>
-        <TouchableOpacity style = {style.cardStyle} onPress = {OnClickMenuItems (props.name)}>
-            <Image source = {props.icon} style = {style.cardImageStyle}/>
-            <Text style = {style.cardTitleStyle}>{props.name}</Text>
-        </TouchableOpacity>
-        </View>
-    );
-}
 
 const style =  StyleSheet.create ({
 container : {
