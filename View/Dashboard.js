@@ -9,6 +9,8 @@ TouchableOpacity,
 Alert
 } from 'react-native'
 
+
+
 const Dashboard = () => {
     return (
         <View style = {style.container}>
@@ -25,7 +27,8 @@ const Dashboard = () => {
                           data = {CardData}
                           renderItem = {
                             ({item}) => <DashboardCards icon = {item.icon} name = {item.name}/>
-                        }>
+                        }
+                        keyExtractor={(item, index) => index.toString()}>
 
                         </FlatList>
 
@@ -45,11 +48,7 @@ const CardData = [
 const DashboardCards = (props) => {
     
     const OnClickMenuItems = (item) => {
-        Alert.alert(
-            'React Assignment',
-            'Welcome to ' + {item},
-            { cancelable: false }
-          );
+        
     }
 
     return (
